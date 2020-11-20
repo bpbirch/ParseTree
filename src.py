@@ -1,4 +1,7 @@
 #%%
+import operator
+#%%
+
 class BinaryTree:
     # BinaryTree is composed of nodes and references to other nodes
     def __init__(self, rootObj):
@@ -80,3 +83,22 @@ def parseTree(expression):
 if __name__ == '__main__':
     pt = parseTree('(3+(4*7))')
     print(pt) # this is giving the correct tree
+
+#%%
+def evalTree(pTree):
+    ops = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+    left = pTree.getLeftChild()
+    right = pTree.getRightChild()
+    # the following is our recursive basecase, in which we do not have any child values
+    # because in our tree, leaf nodes are always integers / operands
+    if left and right:
+        op = ops[pTree.getRootVal()]
+        return op(evalTree(left), evalTree(right)) # so this is where we recursively delve deeper into our tree
+    else:
+        return pTree.getRootVal() # returns our operands 
+
+if __name__ == '__main__':
+    pt = parseTree('(3*(2+5))') # should return 21
+    # so evalTree will recursively create a stack (because that's what recursion is)
+    # and will go until it finds 3, 2, and 5. Then + operates on 2 and 5, then * operates on 7
+    print(evalTree(pt))
