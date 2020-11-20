@@ -49,6 +49,7 @@ if __name__ == '__main__':
     print(lcc.parent)
     print(lc.parent) # this will be the entire binary tree, since parent of lc is the root node
 
+
 #%% parse tree
 # a parse tree is a structure that allows us to represent mathematical expressions
 # as hierarchical node/reference relations
